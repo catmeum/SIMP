@@ -1,0 +1,7 @@
+version: '3'
+services:
+  simp:
+    build: ./
+    hostname: simp
+    ports:
+    - "8081:80"
