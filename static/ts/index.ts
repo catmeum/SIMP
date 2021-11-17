@@ -7,7 +7,7 @@ async function handleFileSelect(evt: any) {
         let buffer = await file.arrayBuffer();
         let parser = ExifParserFactory.create(buffer);
         let output = parser.parse();
-        console.log(output);
+        console.log(output.tags);
     }
 
 }
