@@ -10,10 +10,12 @@ async function handleFileSelect(evt: any) {
         const tags = output.tags;
         filePairs.push({file, tags})
     }
-    const filteredFilePairs = filePairs.filter(({file, tags}) => tags. === "Apple");
+    const filteredFilePairs = filePairs.filter(({file, tags}) => tags.LensMake === "Apple");
     console.log({filePairs, filteredFilePairs});
+    let fileName = "TEST STRING"
+    document.getElementById("data").innerHTML = fileName;
     // @ts-ignore
-    window.map = map;
+    //window.map = map;
 
 }
 
