@@ -7,7 +7,7 @@ Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-map.setView([0, 0], 0);
+map.setView([39.82, -98.58], 5);
 
 var allDemTags: any = {};
 var markers: any[] = [];
@@ -24,7 +24,7 @@ async function handleFileSelect(evt: any) {
         if (!!tags.GPSLatitude && !!tags.GPSLongitude) {
             let marker = Leaflet.marker([tags.GPSLatitude, tags.GPSLongitude]);
             markers.push(marker);
-            marker.addTo(map).bindPopup(`${file.name}<br/><img alt='${file.name}' id='img${i}' width="50px" height="50px">`);
+            marker.addTo(map).bindPopup(`${file.name}<br/><img alt='${file.name}' id='img${i}' width="75px" height="50px">`);
             let fileReader = new FileReader();
             fileReader.onloadend = function () {
                 // @ts-ignore
