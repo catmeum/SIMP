@@ -130,12 +130,12 @@ async function populateMarkers(file:any, tags:any, i:number){
         fileReader.onloadend = function () {
             // console.log(fileReader.result); // Shows the raw data of the image
             // console.log(window.document);
-            let imgTag = window.document.getElementById(`img${i}`) as HTMLImageElement;
+            let imgTag = window.document.getElementById(`img${i}`); //as HTMLImageElement;
             // Cast HTML element to HTML image element
-            console.log(imgTag);
+            //console.log(imgTag);
             if (typeof fileReader.result === "string") {
                 console.log(typeof fileReader.result);
-                imgTag.src = fileReader.result;
+                //imgTag.src = fileReader.result;
             }
         }
         // Presents the thumbnail (blob) in the marker popup
