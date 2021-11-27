@@ -47,16 +47,19 @@ body > section{max-width:1000px;margin:auto;padding:10px 20px;border-bottom:1px 
 
 
 
+
 /* Creates scroll section for cards */
 div.scroll {
     background-color: #FFB5C2;
     width: fit-content;
-    height: 80%;
+    height: 90%;
     overflow-x: hidden;
     overflow-y: scroll;
     text-align: center;
     padding: 20px;
     grid-column-gap: 10px;
+    max-height: 90vh;
+    min-width: 350px;
 }
 /* Adds extra space around each grid element. */
 div.row {
