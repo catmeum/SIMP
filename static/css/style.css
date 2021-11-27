@@ -77,8 +77,8 @@ header{background:#3F84E5;padding:10px 30px;margin:auto;position:fixed;left:0;ri
 #headerRight{height:40px; horiz-align: right}
 .socialButtons{float:right;padding-top:8px}
 .socialButtons a{display:inline-block;cursor:pointer;background:#0570e6;padding:20px;width:100px;text-align:center;height:20px;font-weight:bold;color:#FFF;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:middle}
-.socialButtons a.linkedin{background:#24568e}
-.socialButtons a.youtube{background:#c00}
+.socialButtons a.EXPORT{background:#24568e}
+.socialButtons a.RESTART{background:#c00}
 .socialButtons a svg{width:16px;height:16px;fill:#FFF}
 
 

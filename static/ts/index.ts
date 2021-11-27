@@ -165,7 +165,7 @@ async function handleFileSelect(evt: any) {
         allDemTags[file.name] = tags;
         await updateCards(file);
         await populateMarkers(file, tags, i);
-        // await addImageToMarker(i, file);
+
     }
     // takes all of the markers and adds them to the map
     let featureGroup = new Leaflet.FeatureGroup(markers);
@@ -173,6 +173,11 @@ async function handleFileSelect(evt: any) {
 
 }
 
+async function exportContent(){
+    // EMPTY STUFF
+}
+
 document.onreadystatechange = function () {
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
+    document.getElementById('export-button').addEventListener('change', exportContent, false);
 }
