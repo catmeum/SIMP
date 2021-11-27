@@ -37,13 +37,13 @@ async function updateCards(file: any){
             const cardDIV = generateCard(fileName);
             // Adds cardDIV to the scrollCards Element
             scrollCards.appendChild(cardDIV);
-            console.log(scrollCards.childNodes);
+            //console.log(scrollCards.childNodes);
         }
 }
 
 function cardExists(childNodes: any, fileName: string){
     for (let i = 0; i <childNodes.length; i++){
-        console.log(childNodes[i]);
+        //console.log(childNodes[i]);
         const cardChildren = childNodes[i].childNodes[0].childNodes;
         for (let j = 0; j < cardChildren.length; j++){
             if (cardChildren[j].textContent.includes(fileName)){
@@ -108,7 +108,7 @@ function createCardBodyText(fileName: string){
     // Create card body text
     let cardBodyText = window.document.createElement("p");
     cardBodyText.classList.add("card-text");
-    console.log(allDemTags[fileName]);
+    //console.log(allDemTags[fileName]);
 
     if (!!allDemTags[fileName].HostComputer){
         cardBodyText.innerHTML = allDemTags[fileName].HostComputer + "<br>";
@@ -125,22 +125,29 @@ async function populateMarkers(file:any, tags:any, i:number){
         let marker = Leaflet.marker([tags.GPSLatitude, tags.GPSLongitude]);
         markers.push(marker);
         marker.addTo(map).bindPopup(`${file.name}<br/><img alt='${file.name}' id='img${i}' width="50px" height="50px">`);
-        // Creates fileReader to show thumbnails in the marker pins on the map
-        let fileReader = new FileReader();
-        fileReader.onloadend = function () {
-            // console.log(fileReader.result); // Shows the raw data of the image
-            // console.log(window.document);
-            let imgTag = window.document.getElementById(`img${i}`); //as HTMLImageElement;
-            // Cast HTML element to HTML image element
-            //console.log(imgTag);
-            if (typeof fileReader.result === "string") {
-                console.log(typeof fileReader.result);
-                //imgTag.src = fileReader.result;
-            }
-        }
-        // Presents the thumbnail (blob) in the marker popup
-        fileReader.readAsDataURL(file);
+        marker.addEventListener("click", function (){
+            addImageToMarker(i, file);
+        });
     }
+
+}
+
+function addImageToMarker(i:number, file: any){
+    // Creates fileReader to show thumbnails in the marker pins on the map
+    let fileReader = new FileReader();
+    fileReader.onloadend = function () {
+        // console.log(fileReader.result); // Shows the raw data of the image
+        // console.log(window.document);
+        let imgTag = window.document.getElementById(`img${i}`) as HTMLImageElement;
+        // Cast HTML element to HTML image element
+        //console.log(imgTag);
+        if (typeof fileReader.result === "string") {
+            // console.log(typeof fileReader.result);
+            imgTag.src = fileReader.result;
+        }
+    }
+    // Presents the thumbnail (blob) in the marker popup
+    fileReader.readAsDataURL(file);
 }
 
 async function handleFileSelect(evt: any) {
@@ -158,10 +165,12 @@ async function handleFileSelect(evt: any) {
         allDemTags[file.name] = tags;
         await updateCards(file);
         await populateMarkers(file, tags, i);
+        // await addImageToMarker(i, file);
     }
-
+    // takes all of the markers and adds them to the map
     let featureGroup = new Leaflet.FeatureGroup(markers);
     map.fitBounds(featureGroup.getBounds());
+
 }
 
 document.onreadystatechange = function () {
