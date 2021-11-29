@@ -133,7 +133,7 @@ function createCardBodyText(fileName: string){
     }
     // Add GPS coords
     if (!!allDemTags[fileName].GPSLatitude && !!allDemTags[fileName].GPSLongitude){
-        cardBodyText.innerHTML += "Lat: " + allDemTags[fileName].GPSLatitude + ", Long: " + allDemTags[fileName].GPSLongitude + "<br>";
+        cardBodyText.innerHTML += GPStoAddress(allDemTags[fileName].GPSLatitude, allDemTags[fileName].GPSLongitude);
     } else {
         cardBodyText.innerHTML += "<strong>No Location Info</strong>" + "<br>";
     }
@@ -199,6 +199,15 @@ async function handleFileSelect(evt: any) {
 function epochUTCTime(epochTime: number){
     let d = new Date (epochTime * 1000);
     return (d.toUTCString().replace("GMT", " Local") + "<br>");
+}
+
+//TODO: HOW to return city (village), state, county, and country from fetching
+function GPStoAddress(lat: number, long: number){
+    let geoCache = "https://nominatim.openstreetmap.org/reverse?lat=" + lat + "&lon=" + long + "&format=json";
+    fetch(geoCache)
+        .then(response => response.json())
+        .then(data => console.log(data.address.village))
+    return "test";
 }
 
 async function exportContent(){
