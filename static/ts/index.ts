@@ -100,28 +100,45 @@ function createCardSubTitle(fileName: string){
     // Create card subtitle text
     let cardSubTitle = window.document.createElement("h6");
     cardSubTitle.classList.add("card-subtitle", "mb-2", "text-muted");
-    cardSubTitle.innerText = fileName + " | MD5-hash";
+    const hashes = imgHashGenerator(fileName);
+    cardSubTitle.innerHTML = hashes + "<br>";
+
     return cardSubTitle;
+}
+
+function imgHashGenerator(fileName:string){
+    // return MD5 and SHA1 hashes of image
+    return fileName;
 }
 
 function createCardBodyText(fileName: string){
     // Create card body text
     let cardBodyText = window.document.createElement("p");
     cardBodyText.classList.add("card-text");
-    console.log(allDemTags[fileName]); // TESTING
-    // Add Device type
-    if (!!allDemTags[fileName].HostComputer){
-        cardBodyText.innerHTML = allDemTags[fileName].HostComputer + "<br>";
-    } else {
-        cardBodyText.innerHTML = "No Host Info" + "<br>";
-    }
 
+    console.log(allDemTags[fileName]); // TESTING
+
+    // Add date time information in local time and UTC
     if (!!allDemTags[fileName].DateTimeOriginal){
         //cardBodyText.innerHTML = allDemTags[fileName].DateTimeOriginal + "<br>";
-        cardBodyText.innerHTML += epochTimeConvert(allDemTags[fileName].DateTimeOriginal);
+        cardBodyText.innerHTML += epochUTCTime(allDemTags[fileName].DateTimeOriginal);
     } else {
-        cardBodyText.innerHTML += "No Time / Date Information" + "<br>";
+        cardBodyText.innerHTML = "No Time / Date Information" + "<br>";
     }
+    // Add Device type
+    if (!!allDemTags[fileName].HostComputer){
+        cardBodyText.innerHTML += allDemTags[fileName].HostComputer + "<br>";
+    } else {
+        cardBodyText.innerHTML += "No Host Info" + "<br>";
+    }
+    // Add GPS coords
+    if (!!allDemTags[fileName].GPSLatitude && !!allDemTags[fileName].GPSLongitude){
+        cardBodyText.innerHTML += "Lat: " + allDemTags[fileName].GPSLatitude + ", Long: " + allDemTags[fileName].GPSLongitude + "<br>";
+    } else {
+        cardBodyText.innerHTML += "<strong>No Location Info</strong>" + "<br>";
+    }
+
+
     return cardBodyText;
 }
 
@@ -136,7 +153,6 @@ async function populateMarkers(file:any, tags:any, i:number){
             addImageToMarker(i, file);
         });
     }
-
 }
 
 function addImageToMarker(i:number, file: any){
@@ -180,10 +196,9 @@ async function handleFileSelect(evt: any) {
 
 }
 
-function epochTimeConvert(epochTime: number){
+function epochUTCTime(epochTime: number){
     let d = new Date (epochTime * 1000);
-    let a = (d.toLocaleString() + " GMT" + "<br>" );
-    return a;
+    return (d.toUTCString().replace("GMT", " Local") + "<br>");
 }
 
 async function exportContent(){
@@ -192,5 +207,5 @@ async function exportContent(){
 
 document.onreadystatechange = function () {
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
-    document.getElementById('export-button').addEventListener('change', exportContent, false);
+    document.getElementById('export-btn').addEventListener('change', exportContent, false);
 }
