@@ -108,12 +108,19 @@ function createCardBodyText(fileName: string){
     // Create card body text
     let cardBodyText = window.document.createElement("p");
     cardBodyText.classList.add("card-text");
-    //console.log(allDemTags[fileName]);
-
+    console.log(allDemTags[fileName]); // TESTING
+    // Add Device type
     if (!!allDemTags[fileName].HostComputer){
         cardBodyText.innerHTML = allDemTags[fileName].HostComputer + "<br>";
     } else {
         cardBodyText.innerHTML = "No Host Info" + "<br>";
+    }
+
+    if (!!allDemTags[fileName].DateTimeOriginal){
+        //cardBodyText.innerHTML = allDemTags[fileName].DateTimeOriginal + "<br>";
+        cardBodyText.innerHTML += epochTimeConvert(allDemTags[fileName].DateTimeOriginal);
+    } else {
+        cardBodyText.innerHTML += "No Time / Date Information" + "<br>";
     }
     return cardBodyText;
 }
@@ -171,6 +178,12 @@ async function handleFileSelect(evt: any) {
     let featureGroup = new Leaflet.FeatureGroup(markers);
     map.fitBounds(featureGroup.getBounds());
 
+}
+
+function epochTimeConvert(epochTime: number){
+    let d = new Date (epochTime * 1000);
+    let a = (d.toLocaleString() + " GMT" + "<br>" );
+    return a;
 }
 
 async function exportContent(){
