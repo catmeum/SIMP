@@ -59,12 +59,16 @@ div.scroll {
     padding: 20px;
     grid-column-gap: 10px;
     max-height: 80vh;
-    min-width: 350px;
+    min-width: 400px;
 }
 /* Adds extra space around each grid element. */
 div.row {
-    --bs-gutter-x: 10rem;
+    --bs-gutter-x: 25rem;
     --bs-gutter-y: 0;
+}
+
+div.cardDIV {
+    width: 22rem;
 }
 
 
@@ -83,7 +87,7 @@ header{background:#3F84E5;padding:10px 30px;margin:auto;position:fixed;left:0;ri
 
 
 /* BUTTON CSS */
-button{background:darkgreen; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:normal;color:#FFA62B;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:center; horiz-align:center}
+button{background:#FFA62B; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:normal;color:#000000;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:center; horiz-align:center}
 button:hover{
     background: azure;
 }

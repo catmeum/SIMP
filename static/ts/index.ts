@@ -1,5 +1,6 @@
 import {ExifParserFactory} from "ts-exif-parser";
 import * as Leaflet from "leaflet";
+import * as cryptojs from "crypto-js";
 
 // Creates the map
 var map = new Leaflet.Map('map');
@@ -17,7 +18,6 @@ let markers: any[] = [];
 
 // TESTING - Setup for updating a card with image info
 async function updateCards(file: any){
-    console.log("updateCards was called!!");
     /**
      <div class="card" style="width: 18rem;">
      <div class="card-body">
@@ -34,7 +34,7 @@ async function updateCards(file: any){
     // if the card has already been added, don't re-add card
         let fileName = file.name;
         if (!cardExists(scrollCards.childNodes, fileName)){
-            const cardDIV = generateCard(fileName);
+            const cardDIV = generateCard(file);
             // Adds cardDIV to the scrollCards Element
             scrollCards.appendChild(cardDIV);
             //console.log(scrollCards.childNodes);
@@ -54,13 +54,14 @@ function cardExists(childNodes: any, fileName: string){
     return false;
 }
 
-function generateCard(fileName: string){
+function generateCard(file:any){
     // Calls functions to generate the parts of an individual card.
     // Calls each helper function to create individual card element.
+    let fileName = file.name;
     let cardDIV = createCardDiv();
     let cardBody = createCardBody();
     let cardTitle = createCardTitle(fileName);
-    let cardSubTitle = createCardSubTitle(fileName);
+    let cardSubTitle = createCardSubTitle(file);
     let cardBodyText = createCardBodyText(fileName);
 
     // Appends each element contained in the CardBody to CardBody
@@ -76,7 +77,7 @@ function generateCard(fileName: string){
 function createCardDiv() {
     // Creates a new card DIV element which will contain the image information.
     let cardDIV = window.document.createElement("div");
-    cardDIV.style.width = "18rem";
+    //cardDIV.style.width = "22rem";
     cardDIV.classList.add("card");
     return cardDIV;
 }
@@ -96,20 +97,44 @@ function createCardTitle(fileName: string){
     return cardTitle;
 }
 
-function createCardSubTitle(fileName: string){
+function createCardSubTitle(file:any){
     // Create card subtitle text
+    let fileName = file.name;
     let cardSubTitle = window.document.createElement("h6");
     cardSubTitle.classList.add("card-subtitle", "mb-2", "text-muted");
-    const hashes = imgHashGenerator(fileName);
+    let hashes = imgHashGenerator(file);
     cardSubTitle.innerHTML = hashes + "<br>";
-
     return cardSubTitle;
 }
 
-function imgHashGenerator(fileName:string){
-    // return MD5 and SHA1 hashes of image
-    return fileName;
+function getBase64(file:any) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = function () {
+        console.log(reader.result);
+        //TODO: How to return this value??
+        let result = reader.result;
+    };
+    reader.onerror = function (error) {
+        console.log('Error: ', error);
+        return null;
+    };
+    return result;
 }
+
+
+async function imgHashGenerator(file: any) {
+    console.log("HASHING FUNCTION DOES NOT CURRENTLY WORK");
+    // return MD5 hash of image
+    //console.log(file);
+    let imgB64 = getBase64(file); // prints the base64 string
+    //console.log("imgBinData: " + imgBinData + "<br>");
+    //console.log("File hash: " + fileHash);
+    return cryptojs.MD5(cryptojs.enc.Latin1.parse(imgB64));
+
+}
+
+
 
 function createCardBodyText(fileName: string){
     // Create card body text
@@ -177,6 +202,7 @@ async function handleFileSelect(evt: any) {
     let files: File[] = evt.target.files; // FileList object
 
     for (let i = 0; i < files.length; i++){
+        // TODO: Test to ensure only image files are uploaded.
         let file = files[i];
         let buffer = await file.arrayBuffer();
         let parser = ExifParserFactory.create(buffer);
@@ -212,9 +238,10 @@ function GPStoAddress(lat: number, long: number){
 
 async function exportContent(){
     // EMPTY STUFF
+    alert("EXPORT CONTENT IS NOT YET IMPLEMENTED!");
 }
 
 document.onreadystatechange = function () {
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
-    document.getElementById('export-btn').addEventListener('change', exportContent, false);
+    document.getElementById('export-btn').addEventListener('mouseup', exportContent, false);
 }
