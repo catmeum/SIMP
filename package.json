@@ -20,6 +20,7 @@
     "epoch": "^0.1.0",
     "epoch.js": "^0.4.4",
     "exif-parser": "^0.1.12",
+    "hash.js": "^1.1.7",
     "leaflet": "^1.7.1",
     "progress": "^2.0.3",
     "ts-exif-parser": "^0.2.2"

@@ -39,7 +39,7 @@ address{padding:10px 20px 30px 10px}
 aside > div{margin:10px auto;background:#344;min-height:150px;padding:30px 10px;text-align:center;color:#FFF}
 a#logo{vertical-align:middle;font-size:40px;color:#344;font-weight:bold;display:block;text-decoration:none;text-align:center;line-height:40px;padding:60px 5px}
 body > section{max-width:1000px;margin:auto;padding:10px 20px;border-bottom:1px solid #999;color:#333}
-#main{margin-left:320px}
+#main{margin-left:25rem; margin-right: 25rem}
 #wrapall{padding-top:60px}
 #sidebar{float:left;position:absolute}
 #page{padding:20px}
@@ -52,13 +52,13 @@ body > section{max-width:1000px;margin:auto;padding:10px 20px;border-bottom:1px 
 div.scroll {
     background-color: #FFB5C2;
     width: fit-content;
-    height: 90%;
+    height: 98%;
     overflow-x: hidden;
     overflow-y: scroll;
     text-align: center;
     padding: 20px;
     grid-column-gap: 10px;
-    max-height: 90vh;
+    max-height: 80vh;
     min-width: 350px;
 }
 /* Adds extra space around each grid element. */
@@ -81,6 +81,12 @@ header{background:#3F84E5;padding:10px 30px;margin:auto;position:fixed;left:0;ri
 .socialButtons a.RESTART{background:#c00}
 .socialButtons a svg{width:16px;height:16px;fill:#FFF}
 
+
+/* BUTTON CSS */
+button.refresh-btn{background:#ffff99; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:bold;color:#FFF;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:middle}
+button.refresh-btn:hover{
+    background: azure;
+}
 
 /* Footer CSS Here */
 footer{background:#344;max-width:1000px;margin:0 -20px;clear:both;text-align:right}
