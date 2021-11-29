@@ -83,8 +83,8 @@ header{background:#3F84E5;padding:10px 30px;margin:auto;position:fixed;left:0;ri
 
 
 /* BUTTON CSS */
-button.refresh-btn{background:#ffff99; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:bold;color:#FFF;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:middle}
-button.refresh-btn:hover{
+button{background:darkgreen; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:normal;color:#FFA62B;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:center; horiz-align:center}
+button:hover{
     background: azure;
 }
 
