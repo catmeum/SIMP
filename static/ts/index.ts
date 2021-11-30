@@ -1,6 +1,7 @@
 import {ExifParserFactory} from "ts-exif-parser";
 import * as Leaflet from "leaflet";
 import * as cryptojs from "crypto-js";
+import { jsPDF } from 'jspdf';
 
 // Creates the map
 var map = new Leaflet.Map('map');
@@ -215,10 +216,25 @@ async function closeExportModal(){
     modal.style.display = "none";
 }
 
-async function saveExport(){
+async function saveExport(evt:any){
     console.log("Save Export function run");
+    console.log(evt);
+    let name = evt.srcElement.name.value;
+    let caseNum = evt.srcElement.casenum.value;
+    let description = evt.srcElement.description.value;
+    let filename = evt.srcElement.filename.value;
+    // retrieve the content to export
+    var pdf = new jsPDF('p','pt','a4');
+    pdf.text("Simple Image Mapping Program Report", 20, 20);
+
+
+
+    pdf.save(filename); // will save in current working dir
+
+
+
     // Once function is complete, it'll close itself.
-    await closeExportModal();
+    //await closeExportModal();
 }
 
 document.onreadystatechange = function () {
@@ -226,5 +242,5 @@ document.onreadystatechange = function () {
     document.getElementById('export-btn').addEventListener('mouseup', exportContent, false);
     document.getElementById('closeExport').addEventListener('mouseup', closeExportModal, false);
     document.getElementById('closeExport2').addEventListener('mouseup', closeExportModal, false);
-    document.getElementById('saveExport').addEventListener('mouseup', saveExport, false);
+    document.getElementById('export-form').addEventListener('submit', saveExport, false);
 }

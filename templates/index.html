@@ -51,19 +51,22 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="export-form" onsubmit="return false">
                         <label for="name">Investigator Name</label><br/>
                         <input id="name" type="text" value="" /> <br/>
-                        <label for="case">Case Number</label><br/>
-                        <input id="case" type="text" value="" /> <br/>
-                        <label for="long-text">Description</label><br/>
-                        <textarea id="long-text" cols="30" rows="2">Long text.</textarea><br />
+                        <label for="casenum">Case Number</label><br/>
+                        <input id="casenum" type="text" value="" /> <br/>
+                        <label for="filename">filename</label><br/>
+                        <input id="filename" type="text" value="SIMPreport.pdf" /> <br/>
+                        <label for="description">Description</label><br/>
+                        <textarea id="description" cols="30" rows="2"></textarea><br/>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" value="Submit" class="btn btn-primary" id="saveExport">Save changes</button>
+                    <button type="submit" value="Submit" class="btn btn-primary" id="saveExportBtn" form="export-form">Save changes</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeExport2">Close</button>
                 </div>
+
             </div>
         </div>
     </div>
