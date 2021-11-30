@@ -102,53 +102,36 @@ function createCardSubTitle(file:any){
     let fileName = file.name;
     let cardSubTitle = window.document.createElement("h6");
     cardSubTitle.classList.add("card-subtitle", "mb-2", "text-muted");
-    let hashes = imgHashGenerator(file);
-    cardSubTitle.innerHTML = hashes + "<br>";
+    let hash = imgHashGenerator(file);
+    cardSubTitle.innerHTML = hash + "<br>";
     return cardSubTitle;
 }
 
-function getBase64(file:any) {
-    let reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = function () {
-        console.log(reader.result);
-        //TODO: How to return this value??
-        let result = reader.result;
-    };
-    reader.onerror = function (error) {
-        console.log('Error: ', error);
-        return null;
-    };
-    return result;
-}
-
-
-async function imgHashGenerator(file: any) {
-    console.log("HASHING FUNCTION DOES NOT CURRENTLY WORK");
+function imgHashGenerator(file: any) {
+    // TODO: Fix hashing functionality. I think it's the file object that isn't being properly sent over
+    console.log("THIS HASHING FUNCTION DOES NOT WORK")
     // return MD5 hash of image
-    //console.log(file);
-    let imgB64 = getBase64(file); // prints the base64 string
-    //console.log("imgBinData: " + imgBinData + "<br>");
-    //console.log("File hash: " + fileHash);
-    return cryptojs.MD5(cryptojs.enc.Latin1.parse(imgB64));
-
+    let imgHash = cryptojs.MD5(file);
+    return imgHash;
 }
-
 
 
 function createCardBodyText(fileName: string){
     // Create card body text
     let cardBodyText = window.document.createElement("p");
     cardBodyText.classList.add("card-text");
-
-    console.log(allDemTags[fileName]); // TESTING
-
     // Add date time information in local time and UTC
     if (!!allDemTags[fileName].DateTimeOriginal){
-        //cardBodyText.innerHTML = allDemTags[fileName].DateTimeOriginal + "<br>";
         cardBodyText.innerHTML += epochUTCTime(allDemTags[fileName].DateTimeOriginal);
     } else {
         cardBodyText.innerHTML = "No Time / Date Information" + "<br>";
+    }
+    // Add GPS coords
+    if (!!allDemTags[fileName].GPSLatitude && !!allDemTags[fileName].GPSLongitude){
+        cardBodyText.innerHTML += "Latitude: " + allDemTags[fileName].GPSLatitude + "<br>Longitude: " + allDemTags[fileName].GPSLongitude + "<br>";
+        //cardBodyText.innerHTML += GPStoAddress(allDemTags[fileName].GPSLatitude, allDemTags[fileName].GPSLongitude);
+    } else {
+        cardBodyText.innerHTML += "<strong>No Location Info</strong>" + "<br>";
     }
     // Add Device type
     if (!!allDemTags[fileName].HostComputer){
@@ -156,14 +139,6 @@ function createCardBodyText(fileName: string){
     } else {
         cardBodyText.innerHTML += "No Host Info" + "<br>";
     }
-    // Add GPS coords
-    if (!!allDemTags[fileName].GPSLatitude && !!allDemTags[fileName].GPSLongitude){
-        cardBodyText.innerHTML += GPStoAddress(allDemTags[fileName].GPSLatitude, allDemTags[fileName].GPSLongitude);
-    } else {
-        cardBodyText.innerHTML += "<strong>No Location Info</strong>" + "<br>";
-    }
-
-
     return cardBodyText;
 }
 
@@ -184,13 +159,9 @@ function addImageToMarker(i:number, file: any){
     // Creates fileReader to show thumbnails in the marker pins on the map
     let fileReader = new FileReader();
     fileReader.onloadend = function () {
-        // console.log(fileReader.result); // Shows the raw data of the image
-        // console.log(window.document);
         let imgTag = window.document.getElementById(`img${i}`) as HTMLImageElement;
         // Cast HTML element to HTML image element
-        //console.log(imgTag);
         if (typeof fileReader.result === "string") {
-            // console.log(typeof fileReader.result);
             imgTag.src = fileReader.result;
         }
     }
@@ -208,9 +179,7 @@ async function handleFileSelect(evt: any) {
         let parser = ExifParserFactory.create(buffer);
         let output = parser.parse();
         let tags = output.tags;
-        // console.log(tags.OriginalRawFileName) -> returns undefined
-        // console.log(file.name) -> returns file name
-        //allDemTags[tags.OriginalRawFileName] = tags;
+
         allDemTags[file.name] = tags;
         await updateCards(file);
         await populateMarkers(file, tags, i);
@@ -237,11 +206,25 @@ function GPStoAddress(lat: number, long: number){
 }
 
 async function exportContent(){
-    // EMPTY STUFF
-    alert("EXPORT CONTENT IS NOT YET IMPLEMENTED!");
+    var modal = document.getElementById("modalWindow");
+    modal.style.display = "block";
+}
+
+async function closeExportModal(){
+    var modal = document.getElementById("modalWindow");
+    modal.style.display = "none";
+}
+
+async function saveExport(){
+    console.log("Save Export function run");
+    // Once function is complete, it'll close itself.
+    await closeExportModal();
 }
 
 document.onreadystatechange = function () {
     document.getElementById('files').addEventListener('change', handleFileSelect, false);
     document.getElementById('export-btn').addEventListener('mouseup', exportContent, false);
+    document.getElementById('closeExport').addEventListener('mouseup', closeExportModal, false);
+    document.getElementById('closeExport2').addEventListener('mouseup', closeExportModal, false);
+    document.getElementById('saveExport').addEventListener('mouseup', saveExport, false);
 }

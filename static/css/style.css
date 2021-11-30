@@ -87,10 +87,50 @@ header{background:#3F84E5;padding:10px 30px;margin:auto;position:fixed;left:0;ri
 
 
 /* BUTTON CSS */
-button{background:#FFA62B; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:normal;color:#000000;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:center; horiz-align:center}
+button.EXPORT{background:#FFA62B; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:normal;color:#000000;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:center; horiz-align:center}
+button.RESTART{background:#FFA62B; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:normal;color:#000000;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:center; horiz-align:center}
 button:hover{
     background: azure;
 }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+/* The Modal Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+/* More modal close button*/
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
 
 /* Footer CSS Here */
 footer{background:#344;max-width:1000px;margin:0 -20px;clear:both;text-align:right}

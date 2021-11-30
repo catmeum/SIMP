@@ -16,7 +16,7 @@
                     <!-- These are the social buttons to the far right of the screen.   -->
                     <div class="socialButtons">
                         <button class="RESTART" id="refresh-btn" onclick="history.go(0)">RESTART</button>
-                        <button class="EXPORT" id="export-btn" >EXPORT</button>
+                        <button class="EXPORT" id="export-btn">EXPORT</button>
 
                     </div>
                     <div id="headerRight">
@@ -40,6 +40,37 @@
             </div>
         </div>
     </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="modalWindow">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Export Image Information</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeExport">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <label for="name">Investigator Name</label><br/>
+                        <input id="name" type="text" value="" /> <br/>
+                        <label for="case">Case Number</label><br/>
+                        <input id="case" type="text" value="" /> <br/>
+                        <label for="long-text">Description</label><br/>
+                        <textarea id="long-text" cols="30" rows="2">Long text.</textarea><br />
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" value="Submit" class="btn btn-primary" id="saveExport">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeExport2">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
 
     <!-- Must load last -->
     <script src="../static/js/bundle.js"></script>
