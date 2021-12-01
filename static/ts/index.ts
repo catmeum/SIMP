@@ -103,7 +103,7 @@ function createCardSubTitle(file:any){
     let fileName = file.name;
     let cardSubTitle = window.document.createElement("h6");
     cardSubTitle.classList.add("card-subtitle", "mb-2", "text-muted");
-    let hash = imgHashGenerator(file);
+    let hash = imgHashGenerator(fileName);
     cardSubTitle.innerHTML = hash + "<br>";
     return cardSubTitle;
 }
@@ -225,12 +225,16 @@ async function saveExport(evt:any){
     let filename = evt.srcElement.filename.value;
     // retrieve the content to export
     var pdf = new jsPDF('p','pt','a4');
+    pdf.setFont("arial");
+    pdf.setFontSize(10);
     pdf.text("Simple Image Mapping Program Report", 20, 20);
-
-
-
+    pdf.text(caseNum, 20, 30);
+    pdf.text("Investigator Name: " + name, 20, 40);
+    pdf.text(description, 20, 50);
+    pdf.addPage();
+    let cards = document.getElementById("cards").innerText;
+    pdf.text(cards, 20, 75);
     pdf.save(filename); // will save in current working dir
-
 
 
     // Once function is complete, it'll close itself.
