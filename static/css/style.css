@@ -45,9 +45,6 @@ body > section{max-width:1000px;margin:auto;padding:10px 20px;border-bottom:1px 
 #page{padding:20px}
 
 
-
-
-
 /* Creates scroll section for cards */
 div.scroll {
     background-color: #FFB5C2;
@@ -73,7 +70,7 @@ div.cardDIV {
 
 
 /* Header CSS Here */
-header{background:#3F84E5;padding:10px 30px;margin:auto;position:fixed;left:0;right:0;top:0;z-index:999;height:75px}
+header{background:#D0BFD4;padding:10px 30px;margin:auto;position:fixed;left:0;right:0;top:0;z-index:999;height:75px}
 #header{max-width:1000px;overflow:hidden;height:40px}
 #wrapall,#header{max-width:inherit;margin:0 auto}
 #headerLeft,#headerRight{display:inline-block;vertical-align:middle}
@@ -87,11 +84,13 @@ header{background:#3F84E5;padding:10px 30px;margin:auto;position:fixed;left:0;ri
 
 
 /* BUTTON CSS */
+/*
 button.EXPORT{background:#FFA62B; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:normal;color:#000000;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:center; horiz-align:center}
 button.RESTART{background:#FFA62B; display:inline-block;cursor:pointer;padding:20px;width:100px;text-align:center;height:20px;font-weight:normal;color:#000000;text-decoration:none;line-height:20px;font-size:medium;border-radius:10px;vertical-align:center; horiz-align:center}
 button:hover{
     background: azure;
 }
+*/
 
 /* The Modal (background) */
 .modal {
@@ -115,21 +114,6 @@ button:hover{
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
 }
-/* The Modal Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-/* More modal close button*/
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}
-
 
 
 /* Footer CSS Here */
