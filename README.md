@@ -1,5 +1,5 @@
 # SIMP
-SIMP: Simple Image Mapping Program
+SIMP: Simple Image Mapping Program\n
 Ian Stroszeck & Gino Placella 
 
 ## Description
