@@ -9,3 +9,8 @@ The Simple Image Mapping Program (SIMP) was created to assist forensic researche
 1. Download the ZIP file and unzip
 2. Ensure you have Docker and docker-compose up and running
 3. Run the command: `docker-compose up --build`
+
+## Future Work
+- Allow for sorting of table contents (scroll cards)
+- Create link to image pin on the map from the card title
+- Create a HTML/PDF Export that allows for the following information: Title, Investigator Name, Export Date, map screenshot, and all filtered EXIF data blocks.
