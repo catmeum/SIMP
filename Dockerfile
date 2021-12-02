@@ -7,6 +7,7 @@ RUN pip install -r requirements.txt
 COPY . /app
 RUN apk add git
 RUN git clean -dfx
+RUN npm install -g npm
 RUN npm i
 RUN npx webpack
 EXPOSE 5001

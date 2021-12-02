@@ -149,7 +149,7 @@ async function populateMarkers(file:any, tags:any, i:number){
         //console.log(tags) // shows all tag data in console. Array of tag data.
         let marker = Leaflet.marker([tags.GPSLatitude, tags.GPSLongitude]);
         markers.push(marker);
-        marker.addTo(map).bindPopup(`${file.name}<br/><img alt='${file.name}' id='img${i}' width="50px" height="50px">`);
+        marker.addTo(map).bindPopup(`${file.name}<br/><img alt='${file.name}' id='img${i}' class="img-thumbnail">`);
         marker.addEventListener("click", function (){
             addImageToMarker(i, file);
         });
@@ -200,10 +200,12 @@ function epochUTCTime(epochTime: number){
 //TODO: HOW to return city (village), state, county, and country from fetching
 function GPStoAddress(lat: number, long: number){
     let geoCache = "https://nominatim.openstreetmap.org/reverse?lat=" + lat + "&lon=" + long + "&format=json";
-    fetch(geoCache)
+    fetch(geoCache, {
+        mode: 'no-cors'
+    })
         .then(response => response.json())
         .then(data => console.log(data.address.village))
-    return "test";
+    return "test<br>";
 }
 
 async function exportContent(){
@@ -225,20 +227,22 @@ async function saveExport(evt:any){
     let filename = evt.srcElement.filename.value;
     // retrieve the content to export
     var pdf = new jsPDF('p','pt','a4');
-    pdf.setFont("arial");
-    pdf.setFontSize(10);
+    pdf.setFontSize(12);
     pdf.text("Simple Image Mapping Program Report", 20, 20);
-    pdf.text(caseNum, 20, 30);
-    pdf.text("Investigator Name: " + name, 20, 40);
-    pdf.text(description, 20, 50);
-    pdf.addPage();
-    let cards = document.getElementById("cards").innerText;
-    pdf.text(cards, 20, 75);
+    const curDate = new Date();
+    pdf.text("PDF Export time: " + curDate.toLocaleString(), 275, 20);
+    pdf.text(caseNum, 20, 36);
+    pdf.text("Investigator Name: " + name, 20, 48);
+    pdf.text(description, 20, 60);
+    // dynamic content
+    pdf.setFontSize(10);
+    let allCards = document.getElementById("cards").innerText;
+    console.log(allCards);
+    pdf.text(allCards, 20, 85);
+    // Exports pdf
     pdf.save(filename); // will save in current working dir
-
-
     // Once function is complete, it'll close itself.
-    //await closeExportModal();
+    await closeExportModal();
 }
 
 document.onreadystatechange = function () {
